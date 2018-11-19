@@ -73,17 +73,18 @@ int initiate_bingo(int (*user)[N],int (*com)[N])//빙고테이블을 초기에 만들어줌
 int print_bingo(int (*user)[N],int (*com)[N])
 {
 	int i,j;
-	
+	int c;
+	int tempcode=48-49;
 	//user의 빙고판  
-	printf("--------------당신의 빙고판--------------\n\n");
+	printf("\n\n--------------당신의 빙고판--------------\n\n");
 	//빙고판을 보기 좋게 배열하기 
 	for(i=0;i<N;i++)
 	{
 		for(j=0;j<N;j++)
 		{
-			if(user[i][j]==45)
+			if(user[i][j]==tempcode)
 			{	
-				printf(" | -1 ");
+				printf(" |   -1 ");
 			}
 		
 			else
@@ -97,15 +98,15 @@ int print_bingo(int (*user)[N],int (*com)[N])
 	
 	
 	//computer의 빙고판  
-	printf("--------------computer의 빙고판--------------\n\n");
+	printf("\n\n--------------computer의 빙고판--------------\n\n");
 	//빙고판을 보기 좋게 배열하기 
 	for(i=0;i<N;i++)
 	{
 		for(j=0;j<N;j++)
 		{
-			if(com[i][j]==45)
+			if(com[i][j]==tempcode)
 			{	
-				printf(" | -1 ");
+				printf(" |   -1 ");
 			}
 		
 			else
@@ -117,6 +118,8 @@ int print_bingo(int (*user)[N],int (*com)[N])
 			printf("\n  \n");
 	}
 	printf("\n \n \n");
+	
+	return;
 }
 
 
@@ -127,9 +130,9 @@ int get_number_byMe(int (*user)[N],int (*com)[N])//num은 숫자입력을 받기위한 변�
 	int i,j,userinput;
 	int alreadynum=0;
 	int count;
-	while(1)
-	{
-		printf("1~25까지의 숫자를 입력하세요: ");
+	int tempcode=48-49;
+	
+		printf("당신의 차례입니다. \n \n1~25까지의 숫자를 입력하세요: ");
 		scanf("%i",&userinput);
 		
 		for(i=0;i<N;i++)
@@ -137,33 +140,24 @@ int get_number_byMe(int (*user)[N],int (*com)[N])//num은 숫자입력을 받기위한 변�
 			for(j=0;j<N;j++)
 			{
 				if (user[i][j]==userinput)
-				user[i][j]=0;
-				alreadynum=1;
-	
+				{
+				user[i][j]=tempcode;
+				}
 			}
-		if(alreadynum)
-			break;
-		else
-			printf("이미 입력한 숫자입니다. 다른 숫자를 입력해주세요.: \n");
-			
 		}
-		
+	
 		
 		for(i=0;i<N;i++)
 		{
 			for(j=0;j<N;j++)
 			{
-				if (com[i][j]==userinput)
+				if (userinput==com[i][j])
 				{
-					com[i][j]=0;
+					com[i][j]=tempcode;
 				}
 			}
 		}
-
-	
-
-}
-
+return;
 }
 
 int get_number_byCom(int (*user)[N],int (*com)[N])
@@ -173,12 +167,10 @@ int get_number_byCom(int (*user)[N],int (*com)[N])
 	int alreadynum;
 	int count;
 	int cominput;
-	
-	
+	int tempcode=48-49;
 	
 
-	while(1)
-	{printf("컴퓨터의 차례입니다. "); 
+		printf("\n컴퓨터의 차례입니다.\n \n"); 
 		cominput=rand()%(N*N)+1;
 		for(i=0;i<N;i++)
 		{
@@ -186,79 +178,49 @@ int get_number_byCom(int (*user)[N],int (*com)[N])
 			{
 				if (user[i][j]==cominput)
 				{
-					user[i][j]=0;
+					user[i][j]=tempcode;
 					alreadynum=1;
 				}
 				if(com[i][j]==cominput)
 				{
-					com[i][j]=0;
+					com[i][j]=tempcode;
 				}	
 			}
 		}
-		if(alreadynum)
-			break;
 		
-	printf("컴퓨터가 선택한 숫자입니다. : %d",cominput);	
-	}
-
+	printf("컴퓨터가 선택한 숫자입니다. : %d\n",cominput);	
 	
+
+	return;
 
 }
 
 
-void process_bingo(int user[N][N], int com[N][N])
-{
-	
-	int i,j;
-	for(i=0;i<N;i++)
-	{
-		for(j=0;j<N;j++)
-		{
-			if(user[i][j]==0)
-			{
-				user[i][j]=45;
-			}
-			break;
-		}
-	}
-	
-	for(i=0;i<N;i++)
-	{
-		for(j=0;j<N;j++)
-		{
-			if(com[i][j]==0)
-			{
-				com[i][j]=45;
-			}
-			break;
-		}
-	}
-}
 
 
-int count_bingo(int user[N][N])
+int user_count_bingo(int (*user)[N])
 {
 	int i,j;
 	int rows,cols,cross1,cross2=0;
 	int count=0;
-	
+	int tempcode=48-49;
 	for(i=0;i<N;i++)
 	{
 		for(j=0;j<N;j++)
 		{
-			if (user[i][j]==45)
+			if (user[i][j]==tempcode)
 			{
 				rows++;
 			}
-			if (user[j][i]==45)
+			if (user[j][i]==tempcode)
 			{
 				cols++;
 			}
-			if(i==j&&user[i][j]==45)
+			if(i==j&&user[i][j]==tempcode)
 			{
 				cross1++;
 			}
-			if(i==j&&user[j][i]==45)
+			if(i==j&&user[j][i]==tempcode)
 			{
 				cross2++;
 			}
@@ -282,9 +244,92 @@ int count_bingo(int user[N][N])
 		count++;
 	}
 	
+	printf("\n당신의 빙고의 개수 : %d \n \n",count);
+	
 	return count;
+
 }
 
+int com_count_bingo(int (*com)[N])
+{
+	int i,j;
+	int rows,cols,cross1,cross2=0;
+	int count=0;
+	int tempcode=48-49;
+	//가로빙고갯수 세기  
+	for(i=0;i<N;i++)
+	{	 
+	for(j=0;j<N;j++)
+		{
+			if (com[i][j]==tempcode)
+			{
+				rows++;
+				
+				if(rows==5)
+				{
+					count++;
+				}	
+			}
+		}	
+	}
+	
+		
+	//세로빙고갯수세기  
+	for(i=0;i<N;i++)
+	{	
+	for(j=0;j<N;j++)
+		{
+			if (com[i][j]==tempcode)
+			{
+				cols++;
+				
+				if(cols==5)
+				{
+					count++;
+				}	
+			}
+		}
+	}
+	//대각선빙고갯수세기 		
+	for(i=0;i<N;i++)
+	{
+	for(j=0;j<N;j++)	
+		{
+			if(i==j&&com[i][j]==tempcode)
+			{
+				cross1++;
+			}
+			if(cross1==5)
+			{
+				count++;
+			}
+		}	
+	}
+	//대각선2빙고갯수세기  
+	for(i=0;i<N;i++)
+	{	 
+	for(j=0;j<N;j++)			
+		{
+			if(i==j&&com[j][i]==tempcode)
+			{
+				cross2++;
+			}
+			if(cross2==5)
+			{
+				count++;
+			}
+			
+		}
+
+	}
+
+	
+	printf("\ncomputer의 빙고의 개수 : %d \n \n",count);
+	
+	return count;
+
+
+}
 
 
 
@@ -295,22 +340,28 @@ int main(int argc, char *argv[]) {
 	int com[N][N];
 
 	int count;
-	
+
+	printf("빙고게임을 시작합니다. ");
 	initiate_bingo(user,com);	
 	
 	print_bingo(user,com);
 	
-	while(count_bingo(user)<=4 && count_bingo(com)<=4)
+	while(user_count_bingo(user)<=4 && com_count_bingo(user)<=4)
 	{
 		get_number_byMe(user,com);
+	
 		get_number_byCom(user,com);
+		user_count_bingo(user);
+		com_count_bingo(com);
+			
 		print_bingo(user,com);
-		printf("내 빙고 개수: %d \n computer의 빙고 개수: %d", count_bingo(user),count_bingo(com));
+		
+		
+	
 	}
 	
 	
 	
-
 
 	
 	
