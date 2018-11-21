@@ -3,6 +3,4 @@
 #include <time.h>
 #define N 5
 
-void print_bingo(int (*user)[N],int (*com)[N]) 
-
-
+int print_bingo(int (*user)[N],int (*com)[N]);

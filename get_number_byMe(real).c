@@ -59,5 +59,3 @@ int get_number_byMe(int (*user)[N],int (*com)[N])//내가 빙고 번호 입력 선택
 		
 return userinput;
 }
-
-
