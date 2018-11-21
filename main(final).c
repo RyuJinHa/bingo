@@ -7,6 +7,7 @@
 #include "get_number_byMe(real).h"
 #include "get_number_byCom(real).h"
 #define N 5
+#define winner 5
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 int main(int argc, char *argv[]) {
 	
@@ -33,13 +34,13 @@ int main(int argc, char *argv[]) {
 		printf("%d 번째 턴입니다. \n\n", turnnum);
 		printf("나의 빙고 갯수 : %d  ,  컴퓨터의 빙고 갯수 : %d \n \n",count_bingo(user), count_bingo(com));
 		 
-		if(count_bingo(user)>=N||count_bingo(com)>=N)//빙고개수가 N개 이상인 경우 빙고게임이 끝이난다.  
+		if(count_bingo(user)>=winner||count_bingo(com)>=winner)//빙고개수가 N개 이상인 경우 빙고게임이 끝이난다.  
 		{
-			if(count_bingo(user)>=N)
+			if(count_bingo(user)>=winner)
 			{	
 				printf("축하합니다. %d번 째에 빙고게임을 이겼습니다. ",turnnum);
 			}
-			if(count_bingo(com)>=N) 
+			if(count_bingo(com)>=winner) 
 			{
 				printf(" 안타깝네요. computer가 %d번 째에 빙고게임을 이겼습니다. ",turnnum);
 			}
