@@ -14,35 +14,36 @@
 	  
 int main(int argc, char *argv[]) {
 	
-	int user[N][N];
-	int com[N][N];
-
+	int user[N][N];//user의 빙고배열  
+	int com[N][N];//computer의 빙고배열  
+	int turnnum=0;//몇번째 턴인지를 알게하기 위한 변수  
 	int count;
 
 	printf("빙고게임을 시작합니다. ");
 	
-	initiate_bingo(user,com);	
+	initiate_bingo(user,com);//빙고테이블을 초기에 만들어줌	
 	
-	print_bingo(user,com);
+	print_bingo(user,com);//빙고 테이블 현재 상황을 화면에 출력  
 	
-	while(count_bingo(user)<=4 &&count_bingo(com)<=4)
+	while(count_bingo(user)<=N-1 &&count_bingo(com)<=N-1)
 	{
-		get_number_byMe(user,com);
 	
-		get_number_byCom(user,com);
-		
-		print_bingo(user,com);
-		
+		get_number_byMe(user,com);//내가 빙고 번호 입력 선택
+		get_number_byCom(user,com);//컴퓨터가 임의로 빙고 번호 선택
+		print_bingo(user,com);//빙고 테이블 현재 상황을 화면에 출력 
+		count_bingo(user);//user의 빙고 테이블이 채운 가로/세로/대각선 줄 수를 계산해서 반환
+		count_bingo(com);//computer의 빙고 테이블이 채운 가로/세로/대각선 줄 수를 계산해서 반환 
+		turnnum++;//while문을 반복할때마다  turnnum을 증가시켜 몇번쨰 턴인지를 알게한다.  
+		printf("%d 번째 턴입니다. \n\n", turnnum);
 		printf("나의 빙고 갯수 : %d  ,  컴퓨터의 빙고 갯수 : %d \n \n",count_bingo(user), count_bingo(com));
-	
-	
-		if(count_bingo(user)>=5||count_bingo(com)>=5)
+		 
+		if(count_bingo(user)>=N||count_bingo(com)>=N)//빙고개수가 N개 이상인 경우 빙고게임이 끝이난다.  
 		{
-			if(count_bingo(user)>=5)
+			if(count_bingo(user)>=N)
 			{	
 				printf("축하합니다. 빙고게임을 이겼습니다. ");
 			}
-			if(count_bingo(com)>=5) 
+			if(count_bingo(com)>=N) 
 			{
 				printf(" 안타깝네요. computer가 빙고게임을 이겼습니다. ");
 			}
